@@ -17,6 +17,7 @@ class Todo(db.Model):
     content = db.Column(db.String(200), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
+    # return string representation of object that allows object to be recreated (presumably in the html)
     def __repr__(self):
         return '<Task %r>' % self.id
 
@@ -41,8 +42,11 @@ def index():
     else:
         # return database contents in order of date created
         # display all current tasks
-        tasks = Todo.query.order_by(Todo.date_created).all()
+        tasks = Todo.query.order_by(
+            Todo.date_created).all()  # as opposed to .first()
         return render_template('index.html', tasks=tasks)
+        # tasks = tasks -first is column name, second is argument name
+        # will be used in html in {{ }}
 
 
 @app.route('/delete/<int:id>')
