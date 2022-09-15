@@ -34,6 +34,7 @@ def index():
         try:
             db.session.add(new_task)
             db.session.commit()
+            # the redirect function is sending them back to the index page
             return redirect('/')
         except:
             return "There was an issue adding your task."
